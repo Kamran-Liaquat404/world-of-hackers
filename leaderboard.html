@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Leaderboard | World of Hackers Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container animate-fade-in" style="padding: 0;">
+        <main style="padding: 0;">
+            <h1 class="glow-text" style="font-size: 2.5rem; margin-bottom: 0.5rem;">Elite Operators</h1>
+            <p style="margin-bottom: 3rem; opacity: 0.7; font-size: 0.9rem;">The highest-ranking security researchers in our global network. [GLOBAL_RANKINGS]</p>
+
+            <div class="card" style="padding: 0; overflow: hidden; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color);">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Operator Alias</th>
+                            <th>Experience (XP)</th>
+                            <th>Security Clearance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-list">
+                        <tr>
+                            <td>#1</td>
+                            <td style="color: #fff;">Zero_Cool</td>
+                            <td>125,400 XP</td>
+                            <td><span style="color: #ff5f56;">ELITE_ADMIN</span></td>
+                        </tr>
+                        <tr>
+                            <td>#2</td>
+                            <td style="color: #fff;">Acid_Burn</td>
+                            <td>98,200 XP</td>
+                            <td><span style="color: #ffbd2e;">SENIOR_OP</span></td>
+                        </tr>
+                        <tr>
+                            <td>#3</td>
+                            <td style="color: #fff;">Cereal_Killer</td>
+                            <td>84,500 XP</td>
+                            <td><span style="color: #ffbd2e;">SENIOR_OP</span></td>
+                        </tr>
+                        <tr>
+                            <td>#4</td>
+                            <td style="color: #fff;">Lord_Nikon</td>
+                            <td>72,100 XP</td>
+                            <td><span style="color: var(--terminal-green);">OPERATOR</span></td>
+                        </tr>
+                        <tr>
+                            <td>#5</td>
+                            <td style="color: #fff;">Phantom_Phreak</td>
+                            <td>65,800 XP</td>
+                            <td><span style="color: var(--terminal-green);">OPERATOR</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card" style="margin-top: 3rem; border-color: var(--terminal-green-dim); background: rgba(0,255,65,0.01);">
+                <h3 class="glow-text" style="font-size: 1rem; margin-bottom: 1rem;">Your Standing</h3>
+                <p style="font-size: 0.85rem; opacity: 0.8;">Complete challenges in the Arena or run Simulations to earn XP and climb the ranks. Current Level: [OPERATOR_LEVEL_01]</p>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

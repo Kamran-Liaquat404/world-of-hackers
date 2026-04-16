@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World of Hackers Pro | Cyber Toolkit & Simulation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="logo glow-text" style="font-size: 2.5rem;">WORLD OF HACKERS</div>
+        <div class="loader-text">Initializing system...</div>
+    </div>
+
+    <div class="grid-bg"></div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header" style="padding: 1rem; border-bottom: 1px solid var(--border-color);">
+                <div class="sidebar-logo" style="font-size: 1rem; letter-spacing: 2px;">L.T.S_TEAM</div>
+                <div style="font-size: 0.5rem; color: var(--terminal-green-dim); margin-top: 0.2rem;">v1.0.0</div>
+            </div>
+
+            <div style="padding: 1rem; border-bottom: 1px solid var(--border-color); background: rgba(0,255,65,0.02);">
+                <div style="font-size: 0.55rem; color: var(--terminal-green-dim); margin-bottom: 0.5rem; font-family: var(--font-mono);">[OPERATOR_PROFILE]</div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <div style="width: 32px; height: 32px; border: 1px solid var(--terminal-green); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; background: rgba(0,255,65,0.05);">OP</div>
+                    <div>
+                        <div id="operator-name" style="font-size: 0.8rem; color: #fff; font-weight: bold; font-family: var(--font-mono);">GUEST_OPERATOR</div>
+                        <div style="font-size: 0.5rem; color: var(--terminal-green-dim);">LEVEL: <span id="user-level">01</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-item active" onclick="showSection('dashboard')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" onclick="showSection('terminal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                    <span>Terminal</span>
+                </div>
+                <div class="nav-item" onclick="showSection('toolkit')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                    <span>Toolkit</span>
+                </div>
+                <div class="nav-item" onclick="showSection('network')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <span>Dark Web</span>
+                </div>
+                <div class="nav-item" onclick="showSection('academy')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                    <span>Academy</span>
+                </div>
+                <div class="nav-item" onclick="showSection('roadmap')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                    <span>Roadmap</span>
+                </div>
+                <div class="nav-item" onclick="showSection('intel')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>Intel Feed</span>
+                </div>
+                <div class="nav-item" onclick="showSection('rankings')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                    <span>Rankings</span>
+                </div>
+                <div class="nav-item" onclick="showSection('privacy')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    <span>Privacy</span>
+                </div>
+                <div class="nav-item" onclick="showSection('terms')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <span>Terms</span>
+                </div>
+                <div class="nav-item" onclick="showSection('settings')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
+                </div>
+            </nav>
+
+            <div style="margin-top: auto; padding: 1rem; border-top: 1px solid var(--border-color);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <div style="width: 6px; height: 6px; background: #00ff41; border-radius: 50%; box-shadow: 0 0 8px #00ff41;"></div>
+                    <div style="font-size: 0.5rem; color: var(--terminal-green-dim); font-family: var(--font-mono);">SYS_ONLINE</div>
+                </div>
+                <div id="taskbar-time" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--terminal-green);">00:00:00</div>
+            </div>
+        </aside>
+
+        <!-- Main Viewport -->
+        <main class="main-viewport" id="main-viewport">
+            <!-- Dashboard Section -->
+            <section id="section-dashboard" class="view-section active">
+                <div class="dashboard-layout">
+                    <div class="dashboard-main">
+                        <h1 class="glow-text glitch" data-text="WORLD OF HACKERS HQ" style="font-size: 2rem; margin-bottom: 0.2rem;">WORLD OF HACKERS HQ</h1>
+                        <p style="color: var(--terminal-green-dim); margin-bottom: 1rem; font-size: 0.75rem; max-width: 600px;">
+                            Welcome to the ultimate cyber simulation platform.
+                        </p>
+                        
+                        <div class="stats-grid" style="margin-bottom: 1.5rem;">
+                            <div class="stat-item">
+                                <h2 id="stat-hackers" class="glow-text" style="font-size: 1.2rem;">12,400</h2>
+                                <p style="font-size: 0.5rem;">Elite Operators</p>
+                            </div>
+                            <div class="stat-item">
+                                <h2 id="stat-systems" class="glow-text" style="font-size: 1.2rem;">850,000</h2>
+                                <p style="font-size: 0.5rem;">Nodes Secured</p>
+                            </div>
+                            <div class="stat-item">
+                                <h2 id="stat-rank" class="glow-text" style="font-size: 1.2rem;">#452</h2>
+                                <p style="font-size: 0.5rem;">Global Standing</p>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0,255,65,0.02); padding: 1rem; border: 1px solid var(--border-color);">
+                            <h3 style="font-size: 0.6rem; margin-bottom: 0.8rem; color: var(--terminal-green-dim);">DAILY_MISSION: [ACTIVE]</h3>
+                            <div style="border-left: 2px solid var(--terminal-green); padding-left: 0.8rem;">
+                                <h4 style="color: #fff; margin-bottom: 0.3rem; font-size: 0.9rem;">Operation: Ghost Protocol</h4>
+                                <p style="font-size: 0.7rem; color: var(--terminal-green-dim); margin-bottom: 0.8rem;">
+                                    Infiltrate the secure server of 'Nexus Corp' and extract the encrypted ledger.
+                                </p>
+                                <div style="display: flex; gap: 0.8rem; align-items: center;">
+                                    <span style="font-size: 0.55rem; color: var(--terminal-green); background: rgba(0,255,65,0.1); padding: 2px 6px;">REWARD: 500 XP</span>
+                                    <button onclick="startMission('Ghost Protocol', 500)" style="background: var(--terminal-green); color: #000; border: none; padding: 0.3rem 0.6rem; font-family: var(--font-mono); font-size: 0.6rem; font-weight: bold; cursor: pointer;">START_MISSION</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div style="background: rgba(0,255,65,0.02); padding: 1.5rem; border: 1px solid var(--border-color);">
+                                <h3 style="font-size: 0.7rem; margin-bottom: 1rem; color: var(--terminal-green-dim);">BOUNTY_BOARD</h3>
+                                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,255,65,0.1); padding-bottom: 0.4rem;">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-size: 0.75rem; color: #fff;">Bank of Zurich SQLi</span>
+                                            <span style="font-size: 0.55rem; color: var(--terminal-green-dim);">REWARD: 2500 XP</span>
+                                        </div>
+                                        <button onclick="startMission('Bank of Zurich SQLi', 2500)" style="background: transparent; border: 1px solid var(--terminal-green); color: var(--terminal-green); padding: 0.2rem 0.4rem; font-size: 0.55rem; cursor: pointer; font-family: var(--font-mono);">ACCEPT</button>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,255,65,0.1); padding-bottom: 0.4rem;">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-size: 0.75rem; color: #fff;">Gov.net Root Access</span>
+                                            <span style="font-size: 0.55rem; color: var(--terminal-green-dim);">REWARD: 5000 XP</span>
+                                        </div>
+                                        <button onclick="startMission('Gov.net Root Access', 5000)" style="background: transparent; border: 1px solid var(--terminal-green); color: var(--terminal-green); padding: 0.2rem 0.4rem; font-size: 0.55rem; cursor: pointer; font-family: var(--font-mono);">ACCEPT</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(0,255,65,0.02); padding: 1.5rem; border: 1px solid var(--border-color);">
+                                <h3 style="font-size: 0.7rem; margin-bottom: 1rem; color: var(--terminal-green-dim);">KERNEL_LOGS</h3>
+                                <div id="kernel-logs" style="font-size: 0.6rem; color: var(--terminal-green-dim); opacity: 0.6; font-family: var(--font-mono); line-height: 1.4; height: 80px; overflow: hidden;">
+                                    [0.000000] Linux version 5.10.0-woh-amd64<br>
+                                    [0.001245] ACPI: Core revision 20200925<br>
+                                    [0.124521] pci 0000:00:00.0: [8086:191f]
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="attack-map-container" style="height: 200px; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); margin: 0;">
+                            <div class="map-overlay">LIVE_ATTACK_FEED: [ACTIVE]</div>
+                            <svg class="map-svg" viewBox="0 0 1000 500">
+                                <path fill="var(--terminal-green)" opacity="0.2" d="M150,100 L200,100 L220,150 L180,200 L130,180 Z M400,50 L450,70 L480,120 L420,150 L380,100 Z M700,150 L750,180 L730,250 L680,230 Z M250,300 L300,320 L280,380 L230,360 Z M600,350 L650,370 L630,430 L580,410 Z" />
+                            </svg>
+                            <div id="pings-container"></div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-side-panels">
+                        <div class="side-panel side-terminal" style="height: 250px;">
+                            <div class="side-panel-header">
+                                <span>LIVE_TERMINAL</span>
+                                <span style="font-size: 0.5rem; opacity: 0.5;">v3.0.0</span>
+                            </div>
+                            <div class="side-panel-content" style="padding: 0;">
+                                <iframe src="simulation.html" class="side-iframe"></iframe>
+                            </div>
+                        </div>
+
+                        <div class="side-panel side-tools" style="height: 250px;">
+                            <div class="side-panel-header">
+                                <span>ARSENAL_QUICK_ACCESS</span>
+                                <span style="font-size: 0.5rem; opacity: 0.5;">READY</span>
+                            </div>
+                            <div class="side-panel-content" style="padding: 0;">
+                                <iframe src="tools.html" class="side-iframe"></iframe>
+                            </div>
+                        </div>
+
+                        <div class="side-panel" style="height: 220px;">
+                            <div class="side-panel-header">
+                                <span>SYSTEM_MONITOR</span>
+                            </div>
+                            <div class="side-panel-content">
+                                <div class="monitor-card" style="padding: 0.5rem; background: transparent; border: none;">
+                                    <div class="monitor-label" style="font-size: 0.6rem;">
+                                        <span>CPU LOAD</span>
+                                        <span id="cpu-val">24%</span>
+                                    </div>
+                                    <div class="monitor-bar-bg" style="height: 4px;">
+                                        <div id="cpu-bar" class="monitor-bar-fill" style="width: 24%;"></div>
+                                    </div>
+                                </div>
+                                <div class="monitor-card" style="padding: 0.5rem; background: transparent; border: none; margin-top: 0.5rem;">
+                                    <div class="monitor-label" style="font-size: 0.6rem;">
+                                        <span>RAM USAGE</span>
+                                        <span id="ram-val">4.2 GB</span>
+                                    </div>
+                                    <div class="monitor-bar-bg" style="height: 4px;">
+                                        <div id="ram-bar" class="monitor-bar-fill" style="width: 52%;"></div>
+                                    </div>
+                                </div>
+                                <div class="monitor-card" style="padding: 0.5rem; background: transparent; border: none; margin-top: 0.5rem;">
+                                    <div class="monitor-label" style="font-size: 0.6rem;">
+                                        <span>NET TRAFFIC</span>
+                                        <span id="net-val">1.2 MB/s</span>
+                                    </div>
+                                    <div class="monitor-bar-bg" style="height: 4px;">
+                                        <div id="net-bar" class="monitor-bar-fill" style="width: 15%;"></div>
+                                    </div>
+                                </div>
+                                <div class="monitor-card" style="padding: 0.5rem; background: transparent; border: none; margin-top: 0.5rem;">
+                                    <div class="monitor-label" style="font-size: 0.6rem;">
+                                        <span>SYS_INTEGRITY</span>
+                                        <span id="health-val">100%</span>
+                                    </div>
+                                    <div class="monitor-bar-bg" style="height: 4px;">
+                                        <div id="health-bar" class="monitor-bar-fill" style="width: 100%; background: var(--terminal-green);"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other Sections (Iframes) -->
+            <section id="section-terminal" class="view-section">
+                <iframe src="simulation.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-toolkit" class="view-section">
+                <iframe src="tools.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-network" class="view-section">
+                <iframe src="darkweb.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-academy" class="view-section">
+                <iframe src="learn.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-roadmap" class="view-section">
+                <iframe src="roadmap.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-intel" class="view-section">
+                <iframe src="news.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-rankings" class="view-section">
+                <iframe src="leaderboard.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-privacy" class="view-section">
+                <iframe src="privacy.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+            <section id="section-terms" class="view-section">
+                <iframe src="terms.html" class="viewport-iframe" style="height: calc(100vh - 4rem);"></iframe>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="section-settings" class="view-section">
+                <div style="max-width: 800px;">
+                    <h1 class="glow-text" style="font-size: 2.5rem; margin-bottom: 2rem;">SYSTEM_SETTINGS</h1>
+                    
+                    <div style="background: rgba(0,255,65,0.02); padding: 2rem; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                        <h3 style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--terminal-green);">OPERATOR_PROFILE</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <label style="font-size: 0.8rem; color: var(--terminal-green-dim);">OPERATOR_NAME</label>
+                            <input type="text" id="settings-op-name" style="background: #000; border: 1px solid var(--border-color); color: var(--terminal-green); padding: 0.5rem; font-family: var(--font-mono); width: 100%;" placeholder="Enter name...">
+                            <button onclick="saveSettings()" style="background: var(--terminal-green); color: #000; border: none; padding: 0.75rem; font-family: var(--font-mono); cursor: pointer; font-weight: bold; margin-top: 1rem;">COMMIT_CHANGES</button>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,255,65,0.02); padding: 2rem; border: 1px solid var(--border-color);">
+                        <h3 style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--terminal-green);">VISUAL_INTERFACE</h3>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                            <button onclick="setTheme('matrix')" class="theme-btn" style="flex: 1; padding: 1rem; background: #000; border: 1px solid #00ff41; color: #00ff41; font-family: var(--font-mono); cursor: pointer;">MATRIX</button>
+                            <button onclick="setTheme('amber')" class="theme-btn" style="flex: 1; padding: 1rem; background: #000; border: 1px solid #ffb000; color: #ffb000; font-family: var(--font-mono); cursor: pointer;">AMBER</button>
+                            <button onclick="setTheme('ghost')" class="theme-btn" style="flex: 1; padding: 1rem; background: #000; border: 1px solid #00fff9; color: #00fff9; font-family: var(--font-mono); cursor: pointer;">GHOST</button>
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 1.5rem; border-top: 1px solid rgba(0,255,65,0.1);">
+                            <span style="font-size: 0.8rem; color: var(--terminal-green-dim);">CRT_SCANLINE_EFFECT</span>
+                            <button id="crt-toggle" onclick="toggleCRT()" style="background: transparent; border: 1px solid var(--terminal-green); color: var(--terminal-green); padding: 0.5rem 1rem; cursor: pointer; font-family: var(--font-mono); font-size: 0.7rem;">[ENABLED]</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notifications Container -->
+    <div id="notifications-container" style="position: fixed; top: 2rem; right: 2rem; z-index: 9999; display: flex; flex-direction: column; gap: 1rem; pointer-events: none;"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

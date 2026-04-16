@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.O.H Terminal | World of Hackers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { overflow: hidden; }
+        .log-error { color: var(--danger-red); }
+        .log-success { color: var(--terminal-green); font-weight: bold; }
+        .log-cmd { color: #fff; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="sim-layout" id="sim-root" style="height: 100vh; background: #000;">
+        <!-- Sidebar: Categories & Tools -->
+        <div class="sim-sidebar" style="width: 200px; padding: 1.5rem; border-right: 1px solid var(--border-color);">
+            <h4 style="font-size: 0.7rem; margin-bottom: 1.5rem; color: var(--terminal-green-dim); letter-spacing: 1px;">TARGET_VECTORS</h4>
+            <div class="sim-category-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div class="sim-cat-card active" data-cat="website" onclick="selectVector(this)" style="font-size: 0.75rem; padding: 0.5rem; cursor: pointer; border: 1px solid transparent;">Web App Pentest</div>
+                <div class="sim-cat-card" data-cat="cctv" onclick="selectVector(this)" style="font-size: 0.75rem; padding: 0.5rem; cursor: pointer; border: 1px solid transparent;">Surveillance Node</div>
+                <div class="sim-cat-card" data-cat="database" onclick="selectVector(this)" style="font-size: 0.75rem; padding: 0.5rem; cursor: pointer; border: 1px solid transparent;">SQL Extraction</div>
+                <div class="sim-cat-card" data-cat="wifi" onclick="selectVector(this)" style="font-size: 0.75rem; padding: 0.5rem; cursor: pointer; border: 1px solid transparent;">Protocol Analysis</div>
+            </div>
+
+            <h4 style="font-size: 0.7rem; margin: 2rem 0 1.5rem; color: var(--terminal-green-dim); letter-spacing: 1px;">ACTIVE_MISSIONS</h4>
+            <div id="mission-list" style="font-size: 0.65rem; color: var(--terminal-green-dim);">
+                <div style="margin-bottom: 1rem; padding-left: 0.5rem; border-left: 2px solid var(--terminal-green);">
+                    <div style="color: var(--terminal-green); margin-bottom: 0.2rem;">RECON_PHASE</div>
+                    Run 'nmap' to scan target.
+                </div>
+                <div style="margin-bottom: 1rem; padding-left: 0.5rem; border-left: 2px solid #333;">
+                    <div style="margin-bottom: 0.2rem;">EXPLOIT_PHASE</div>
+                    Find vulnerability.
+                </div>
+            </div>
+        </div>
+
+        <!-- Main: Visual Monitor & Terminal -->
+        <div class="sim-main" style="flex: 1; display: flex; flex-direction: column; background: #000;">
+            <div class="terminal-tab-bar" style="display: flex; background: #050505; border-bottom: 1px solid var(--border-color);">
+                <div class="terminal-tab active" style="padding: 0.5rem 1rem; font-size: 0.7rem; border-right: 1px solid var(--border-color);">kali@woh: ~</div>
+                <div class="terminal-tab" style="padding: 0.5rem 1rem; font-size: 0.7rem; color: #444;">root@woh: /etc</div>
+            </div>
+
+            <div class="sim-visual-monitor" style="height: 150px; background: rgba(0,255,65,0.02); border-bottom: 1px solid var(--border-color); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                <div id="visual-monitor-content" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--terminal-green-dim); text-align: center;">
+                    <div class="glitch" data-text="SYSTEM_IDLE">SYSTEM_IDLE</div>
+                    <div style="font-size: 0.6rem; opacity: 0.5; margin-top: 0.5rem;">LISTENING_ON_PORT: 443</div>
+                </div>
+                <canvas id="monitor-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.1;"></canvas>
+            </div>
+
+            <div class="terminal-body" id="terminal-output" style="flex: 1; padding: 1.5rem; overflow-y: auto; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5;">
+                <p style="color: var(--terminal-green-dim);">[INITIALIZING W.O.H_TERMINAL v3.0.0]</p>
+                <p style="color: var(--terminal-green-dim);">Type 'help' to see available commands.</p>
+                <br>
+            </div>
+
+            <div class="terminal-input-line" style="padding: 1rem 1.5rem; background: #050505; border-top: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.5rem;">
+                <span style="color: var(--terminal-green); font-family: var(--font-mono); font-size: 0.85rem;">kali@woh:~$</span>
+                <input type="text" id="cmd-input" autofocus autocomplete="off" style="flex: 1; background: transparent; border: none; color: #fff; font-family: var(--font-mono); font-size: 0.85rem; outline: none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal-output');
+        const input = document.getElementById('cmd-input');
+        const visual = document.getElementById('visual-monitor-content');
+
+        // --- Mission System ---
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'START_MISSION') {
+                const { name, reward } = event.data;
+                log(`[MISSION_RECEIVED] ${name}`, 'info');
+                log(`Objective: Complete the simulation to earn ${reward} XP.`, 'info');
+                log('------------------------------------------------', 'none');
+                
+                // Store mission state
+                window.currentMission = { name, reward };
+            }
+        });
+
+        function selectVector(el) {
+            document.querySelectorAll('.sim-cat-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            log(`Target vector switched to: ${el.textContent}`, 'info');
+            visual.innerHTML = `<div class="glitch" data-text="${el.dataset.cat.toUpperCase()}_ACTIVE">${el.dataset.cat.toUpperCase()}_ACTIVE</div><div style="font-size: 0.6rem; opacity: 0.5; margin-top: 0.5rem;">ESTABLISHING_UPLINK...</div>`;
+        }
+
+        function log(msg, type = 'cmd') {
+            const p = document.createElement('p');
+            p.style.color = type === 'error' ? '#ff5f56' : type === 'success' ? '#00ff41' : type === 'info' ? 'rgba(0, 255, 65, 0.5)' : '#fff';
+            p.innerHTML = type === 'cmd' ? `<span style="color: var(--terminal-green)">></span> ${msg}` : msg;
+            terminal.appendChild(p);
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        input.onkeydown = (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value.trim().toLowerCase();
+                log(`kali@woh:~$ ${input.value}`, 'none');
+                input.value = '';
+                handleCmd(cmd);
+            }
+        };
+
+        function handleCmd(cmd) {
+            if (!cmd) return;
+            
+            const args = cmd.split(' ');
+            const base = args[0];
+
+            switch(base) {
+                case 'help':
+                    log('Available commands: help, clear, nmap, ls, whoami, status, scan, exploit, neofetch');
+                    break;
+                case 'neofetch':
+                    log('            .-/+oossssoo+/-.               kali@woh');
+                    log('        `:+ssssssssssssssssss+:`           ---------');
+                    log('      -+ssssssssssssssssssyyssss+-         OS: World of Hackers v3.0');
+                    log('    .ossssssssssssssssssdMMMNysssso.       Kernel: 5.10.0-woh-amd64');
+                    log('   /ssssssssssshdmmNNmmyNMMMMhssssss/      Uptime: 12 days, 4 hours');
+                    log('  +ssssssssshmydMMMMMMMNddddyssssssss+     Packages: 2451 (dpkg)');
+                    log(' /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/    Shell: bash 5.1.4');
+                    log('.ssssssssdMMMMMMMMMMMMMMMMMMMMdssssssss.   Resolution: 1920x1080');
+                    log('+ssssssssNMMMMMMMMMMMMMMMMMMMMNssssssss+   DE: WOH_WM');
+                    log('osssssssNMMMMMMMMMMMMMMMMMMMMMMNssssssso   WM: i3-woh');
+                    log('osssssssNMMMMMMMMMMMMMMMMMMMMMMNssssssso   Terminal: woh-term');
+                    log('+ssssssssNMMMMMMMMMMMMMMMMMMMMNssssssss+   CPU: WOH Quantum (8) @ 4.2GHz');
+                    log('.ssssssssdMMMMMMMMMMMMMMMMMMMMdssssssss.   GPU: WOH Virtual GPU');
+                    log(' /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/    Memory: 4.2GB / 16GB');
+                    log('  +ssssssssshmydMMMMMMMNddddyssssssss+');
+                    log('   /ssssssssssshdmmNNmmyNMMMMhssssss/      ');
+                    log('    .ossssssssssssssssssdMMMNysssso.       ');
+                    log('      -+ssssssssssssssssssyyssss+-         ');
+                    log('        `:+ssssssssssssssssss+:`           ');
+                    log('            .-/+oossssoo+/-.               ');
+                    break;
+                case 'clear':
+                    terminal.innerHTML = '';
+                    break;
+                case 'whoami':
+                    log(localStorage.getItem('hacker_name') || 'guest_operator');
+                    break;
+                case 'ls':
+                    log('Desktop  Documents  Downloads  Music  Pictures  Videos  exploits  tools');
+                    break;
+                case 'nmap':
+                    log('Starting Nmap 7.92 ( https://nmap.org ) at 2026-04-16 09:30');
+                    log('Nmap scan report for target.woh.internal (10.0.2.15)');
+                    log('Host is up (0.00012s latency).');
+                    log('Not shown: 998 closed ports');
+                    log('PORT     STATE SERVICE');
+                    log('22/tcp   open  ssh');
+                    log('80/tcp   open  http');
+                    log('443/tcp  open  https');
+                    log('Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds', 'success');
+                    break;
+                case 'status':
+                    log('SYSTEM_STATUS: [OPERATIONAL]');
+                    log('ENCRYPTION: [AES-256-GCM]');
+                    log('UPLINK: [STABLE]');
+                    break;
+                case 'scan':
+                    log('Scanning target for vulnerabilities...', 'info');
+                    setTimeout(() => {
+                        log('Found potential SQL injection point in /api/v1/login', 'info');
+                        log('Found open port 22 (SSH) with legacy version', 'info');
+                        log('Found unpatched web server (Apache 2.4.49)', 'info');
+                        log('Recommendation: Use "exploit" command to proceed.', 'success');
+                    }, 1500);
+                    break;
+                case 'exploit':
+                    log('Attempting exploit sequence...', 'info');
+                    setTimeout(() => {
+                        log('Vulnerability found: CVE-2026-1245 (Buffer Overflow)', 'success');
+                        setTimeout(() => {
+                            log('Executing payload...', 'info');
+                            setTimeout(() => {
+                                log('EXPLOIT SUCCESSFUL. ROOT ACCESS GRANTED.', 'success');
+                                
+                                // Check for mission completion
+                                if (window.currentMission) {
+                                    const { name, reward } = window.currentMission;
+                                    log(`MISSION COMPLETE: ${name}`, 'success');
+                                    log(`REWARD: ${reward} XP`, 'success');
+                                    
+                                    // Notify parent to add XP
+                                    if (window.parent && window.parent.addXP) {
+                                        window.parent.addXP(reward);
+                                    }
+                                    window.currentMission = null;
+                                }
+                            }, 1500);
+                        }, 1000);
+                    }, 1000);
+                    break;
+                default:
+                    log(`Command not found: ${base}`, 'error');
+            }
+        }
+
+        // Simple monitor animation
+        const canvas = document.getElementById('monitor-canvas');
+        const ctx = canvas.getContext('2d');
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0,0,0,0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#00ff41';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, Math.random() * canvas.height);
+            ctx.lineTo(canvas.width, Math.random() * canvas.height);
+            ctx.stroke();
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+
+    <script src="app.js"></script>
+    <script>
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('terminal-time').textContent = now.toLocaleTimeString();
+        }, 1000);
+        document.getElementById('sim-user').textContent = localStorage.getItem('hacker_name') || 'GUEST_OPERATOR';
+    </script>
+</body>
+</html>

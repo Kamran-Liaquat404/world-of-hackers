@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.O.H Toolkit | World of Hackers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .tool-grid { grid-template-columns: 1fr; }
+        }
+        .locked-tool {
+            position: relative;
+            opacity: 0.5;
+            filter: grayscale(1);
+            cursor: not-allowed;
+        }
+        .locked-tool::after {
+            content: 'LOCKED';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            background: var(--danger-red);
+            color: #fff;
+            padding: 0.2rem 1rem;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate-fade-in" style="padding: 0;">
+        <main style="padding: 0;">
+            <h1 class="glow-text" style="font-size: 2.5rem; margin-bottom: 0.5rem;">W.O.H Arsenal</h1>
+            <p style="margin-bottom: 3rem; opacity: 0.7; font-size: 0.9rem;">Professional utilities for elite operators. Unlock advanced tools as you level up.</p>
+
+            <div class="tool-grid">
+                <div class="tool-section" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <h3 style="color: var(--terminal-green); margin-bottom: 1.5rem;">Password Analyzer</h3>
+                    <div class="form-group">
+                        <label style="font-size: 0.8rem; color: var(--terminal-green-dim);">ENTER_STRING</label>
+                        <input type="password" id="pass-checker-input" placeholder="Type password here..." style="background: #000; border: 1px solid var(--border-color); color: var(--terminal-green); padding: 0.5rem; width: 100%; font-family: var(--font-mono); margin-top: 0.5rem;">
+                        <div class="strength-meter" style="height: 4px; background: #111; margin-top: 1rem; overflow: hidden;">
+                            <div id="strength-bar" class="strength-bar" style="height: 100%; width: 0; transition: all 0.3s;"></div>
+                        </div>
+                        <p id="strength-text" style="margin-top: 10px; font-size: 0.8rem; color: var(--terminal-green-dim);">Strength: -</p>
+                    </div>
+                </div>
+
+                <div class="tool-section" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <h3 style="color: var(--terminal-green); margin-bottom: 1.5rem;">Entropy Generator</h3>
+                    <p style="font-size: 0.8rem; margin-bottom: 1.5rem; opacity: 0.8;">Generate cryptographically strong 16-character keys.</p>
+                    <button class="btn btn-primary" id="gen-pass-btn" style="background: var(--terminal-green); color: #000; border: none; padding: 0.5rem 1rem; cursor: pointer; font-family: var(--font-mono); font-weight: bold;">GENERATE_KEY</button>
+                    <div class="tool-output" style="margin-top: 1rem; background: rgba(0,255,65,0.05); padding: 0.5rem; border: 1px solid var(--border-color); font-family: var(--font-mono); font-size: 0.8rem;">
+                        <span id="gen-pass-output">WAITING_FOR_INPUT...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-grid" style="margin-top: 2rem;">
+                <div class="tool-section" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <h3 style="color: var(--terminal-green); margin-bottom: 1.5rem;">Hash Factory</h3>
+                    <div class="form-group">
+                        <label style="font-size: 0.8rem; color: var(--terminal-green-dim);">INPUT_DATA</label>
+                        <input type="text" id="hash-input" placeholder="Enter string..." style="background: #000; border: 1px solid var(--border-color); color: var(--terminal-green); padding: 0.5rem; width: 100%; font-family: var(--font-mono); margin-top: 0.5rem;">
+                        <button class="btn" id="hash-gen-btn" style="margin-top: 1rem; background: transparent; border: 1px solid var(--terminal-green); color: var(--terminal-green); padding: 0.5rem 1rem; cursor: pointer; font-family: var(--font-mono);">COMPUTE_HASHES</button>
+                    </div>
+                    <div class="tool-output" style="margin-top: 1rem; background: rgba(0,255,65,0.05); padding: 0.5rem; border: 1px solid var(--border-color); font-family: var(--font-mono); font-size: 0.7rem; word-break: break-all;">
+                        <span id="hash-output">MD5 / SHA-256 will appear here...</span>
+                    </div>
+                </div>
+
+                <div class="tool-section locked-tool" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <h3 style="color: var(--terminal-green); margin-bottom: 1.5rem;">Payload Architect</h3>
+                    <div class="form-group">
+                        <label style="font-size: 0.8rem; color: var(--terminal-green-dim);">SELECT_VECTOR</label>
+                        <select id="payload-type" disabled style="background: #000; border: 1px solid var(--border-color); color: var(--terminal-green); padding: 0.5rem; width: 100%; font-family: var(--font-mono); margin-top: 0.5rem;">
+                            <option value="xss">XSS_PAYLOAD</option>
+                            <option value="sqli">SQLI_PAYLOAD</option>
+                            <option value="rce">RCE_SHELLCODE</option>
+                        </select>
+                        <button class="btn" disabled style="margin-top: 1rem; background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.5rem 1rem; cursor: pointer; font-family: var(--font-mono);">GENERATE_PAYLOAD</button>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="glow-text" style="margin-top: 4rem; font-size: 1.5rem;">Security Analysis Suite (Simulated)</h2>
+            <div class="kali-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div class="kali-tool-card" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 1.5rem;">
+                    <h4>Nmap</h4>
+                    <p style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 1rem;">Network exploration tool and security / port scanner.</p>
+                    <button onclick="runSimulatedTool('Nmap')" style="width: 100%; background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem; font-size: 0.7rem; cursor: pointer; font-family: var(--font-mono);">EXECUTE_SCAN</button>
+                </div>
+                <div class="kali-tool-card" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 1.5rem;">
+                    <h4>Metasploit</h4>
+                    <p style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 1rem;">The world's most used penetration testing framework.</p>
+                    <button onclick="runSimulatedTool('Metasploit')" style="width: 100%; background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem; font-size: 0.7rem; cursor: pointer; font-family: var(--font-mono);">LAUNCH_CONSOLE</button>
+                </div>
+                <div class="kali-tool-card" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 1.5rem;">
+                    <h4>Aircrack-ng</h4>
+                    <p style="font-size: 0.75rem; opacity: 0.7; margin-bottom: 1rem;">Complete suite of tools to assess WiFi network security.</p>
+                    <button onclick="runSimulatedTool('Aircrack-ng')" style="width: 100%; background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem; font-size: 0.7rem; cursor: pointer; font-family: var(--font-mono);">START_MONITOR</button>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            function runSimulatedTool(name) {
+                if (window.parent && window.parent.showNotification) {
+                    window.parent.showNotification('TOOL_EXECUTION', `Initializing ${name} in background session...`, 'info');
+                    setTimeout(() => {
+                        window.parent.showNotification('TOOL_COMPLETE', `${name} execution finished. Check logs.`, 'success');
+                    }, 3000);
+                }
+            }
+
+            // Password Gen
+            document.getElementById('gen-pass-btn').onclick = () => {
+                const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+                let pass = "";
+                for (let i = 0; i < 16; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+                document.getElementById('gen-pass-output').textContent = pass;
+            };
+
+            // Strength Checker
+            document.getElementById('pass-checker-input').oninput = (e) => {
+                const pass = e.target.value;
+                let strength = 0;
+                if (pass.length > 8) strength += 25;
+                if (/[A-Z]/.test(pass)) strength += 25;
+                if (/[0-9]/.test(pass)) strength += 25;
+                if (/[^A-Za-z0-9]/.test(pass)) strength += 25;
+                
+                const bar = document.getElementById('strength-bar');
+                bar.style.width = strength + '%';
+                bar.style.background = strength < 50 ? '#ff5f56' : strength < 100 ? '#ffbd2e' : '#00ff41';
+                document.getElementById('strength-text').textContent = `Strength: ${strength}%`;
+            };
+        </script>
+    </div>
+</body>
+</html>

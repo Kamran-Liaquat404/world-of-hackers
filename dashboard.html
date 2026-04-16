@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | World of Hackers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container animate-fade-in">
+        <header>
+            <nav>
+                <div class="logo glow-text"><span>W.O.H</span></div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="tools.html">Tools</a>
+                    <a href="simulation.html">Simulation</a>
+                    <a href="learn.html">Learn</a>
+                    <a href="roadmap.html">Roadmap</a>
+                    <a href="news.html">News</a>
+                    <a href="leaderboard.html">Leaderboard</a>
+                    <a href="dashboard.html" class="active">Dashboard</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <h1 class="glow-text">Operator Dashboard</h1>
+            <div class="card" style="margin-top: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <div>
+                        <h2 id="user-name" style="font-size: 2.5rem; margin-bottom: 0.5rem;">OPERATOR</h2>
+                        <p class="terminal-text" style="color: var(--terminal-green-dim);">STATUS: <span id="user-rank">ACTIVE</span></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <h2 id="user-xp" class="glow-text" style="font-size: 2.5rem;">0</h2>
+                        <p class="terminal-text" style="font-size: 0.8rem;">TOTAL XP</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 3rem;">
+                    <p style="margin-bottom: 0.8rem; font-family: var(--font-mono); font-size: 0.8rem;">RANK PROGRESSION</p>
+                    <div class="progress-container" style="height: 10px; border: 1px solid var(--border-color);">
+                        <div id="rank-progress" class="progress-bar" style="width: 0%; height: 100%; background: var(--terminal-green);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>Recent Intel</h3>
+                    <p class="terminal-text" style="font-size: 0.8rem; margin-bottom: 0.5rem;">> [OK] System initialized</p>
+                    <p class="terminal-text" style="font-size: 0.8rem; margin-bottom: 0.5rem;">> [OK] Encrypted tunnel established</p>
+                    <p class="terminal-text" style="font-size: 0.8rem; margin-bottom: 0.5rem;">> [XP] +25 Simulation completed</p>
+                </div>
+                <div class="card">
+                    <h3>Clearance Level</h3>
+                    <p style="margin-bottom: 1rem;">Your current access level permits use of all basic tools and simulations.</p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <span style="padding: 4px 8px; background: var(--terminal-green-glow); font-size: 0.7rem; font-family: var(--font-mono);">LEVEL_01</span>
+                        <span style="padding: 4px 8px; background: var(--terminal-green-glow); font-size: 0.7rem; font-family: var(--font-mono);">TOOLKIT_AUTH</span>
+                        <span style="padding: 4px 8px; background: var(--terminal-green-glow); font-size: 0.7rem; font-family: var(--font-mono);">SIM_ACCESS</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 World of Hackers | Developed by Liaqat Tech Studio</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+            </div>
+        </footer>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

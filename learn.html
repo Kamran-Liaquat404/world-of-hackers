@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.O.H Academy | World of Hackers</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .module-grid { grid-template-columns: 1fr; }
+        }
+        .skill-node {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 1px solid var(--border-color);
+        }
+        .skill-node::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            background: var(--terminal-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="container animate-fade-in" style="padding: 0;">
+        <main style="padding: 0;">
+            <h1 class="glow-text" style="font-size: 2.5rem; margin-bottom: 0.5rem;">W.O.H Academy</h1>
+            <p style="margin-bottom: 3rem; opacity: 0.7; font-size: 0.9rem;">Master the art of digital warfare. From script kiddie to elite operator. [LEVEL: OPERATOR]</p>
+
+            <div class="module-grid">
+                <div class="course-module" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <div style="font-size: 0.7rem; color: var(--terminal-green-dim); margin-bottom: 1rem; font-family: var(--font-mono);">PATH: BEGINNER</div>
+                    <h2 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--terminal-green);">The Script Kiddie Path</h2>
+                    <div class="skill-tree" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="skill-node" style="font-size: 0.8rem; color: #fff;">Linux Fundamentals [COMPLETED]</div>
+                        <div class="skill-node" style="font-size: 0.8rem; color: #fff;">Networking Basics [COMPLETED]</div>
+                        <div class="skill-node" style="font-size: 0.8rem; color: var(--terminal-green-dim);">Intro to Nmap [IN_PROGRESS]</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.75rem; color: var(--terminal-green-dim);">PROGRESS: 65%</span>
+                        <button class="btn" style="background: var(--terminal-green); color: #000; border: none; padding: 0.4rem 1rem; font-size: 0.75rem; cursor: pointer; font-weight: bold;">CONTINUE_PATH</button>
+                    </div>
+                </div>
+
+                <div class="course-module" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <div style="font-size: 0.7rem; color: var(--terminal-green-dim); margin-bottom: 1rem; font-family: var(--font-mono);">PATH: INTERMEDIATE</div>
+                    <h2 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--terminal-green);">Web Infiltration</h2>
+                    <div class="skill-tree" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="skill-node" style="font-size: 0.8rem; color: var(--terminal-green-dim); opacity: 0.5;">SQL Injection Mastery</div>
+                        <div class="skill-node" style="font-size: 0.8rem; color: var(--terminal-green-dim); opacity: 0.5;">XSS Exploitation</div>
+                        <div class="skill-node" style="font-size: 0.8rem; color: var(--terminal-green-dim); opacity: 0.5;">Broken Auth Lab</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.75rem; color: var(--terminal-green-dim);">PROGRESS: 0%</span>
+                        <button class="btn" style="background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem 1rem; font-size: 0.75rem; cursor: pointer;">LOCKED</button>
+                    </div>
+                </div>
+            </div>
+
+                <div class="course-module" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <div style="font-size: 0.7rem; color: var(--terminal-green-dim); margin-bottom: 1rem; font-family: var(--font-mono);">MODULE_03: NETWORK_OPS</div>
+                    <h2 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--terminal-green);">Advanced Network Recon</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem;">Techniques for stealthy network discovery, port scanning, and protocol analysis using professional tools.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.75rem; color: var(--terminal-green-dim);">PROGRESS: 0%</span>
+                        <button class="btn" style="background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem 1rem; font-size: 0.75rem; cursor: pointer;">ENROLL_NOW</button>
+                    </div>
+                </div>
+
+                <div class="course-module" style="background: rgba(0,255,65,0.02); border: 1px solid var(--border-color); padding: 2rem;">
+                    <div style="font-size: 0.7rem; color: var(--terminal-green-dim); margin-bottom: 1rem; font-family: var(--font-mono);">MODULE_04: EXPLOITATION</div>
+                    <h2 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--terminal-green);">Buffer Overflow Mastery</h2>
+                    <p style="font-size: 0.85rem; opacity: 0.8; line-height: 1.6; margin-bottom: 1.5rem;">Low-level memory corruption vulnerabilities and the development of reliable exploit payloads.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.75rem; color: var(--terminal-green-dim);">PROGRESS: 0%</span>
+                        <button class="btn" style="background: transparent; border: 1px solid var(--terminal-green-dim); color: var(--terminal-green-dim); padding: 0.4rem 1rem; font-size: 0.75rem; cursor: pointer;">LOCKED</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
